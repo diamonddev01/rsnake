@@ -42,31 +42,32 @@ fn main() {
     let ref font = assets.join("retro-gaming.ttf");
     let mut glyphs = window.load_font(font).unwrap();
 
-    let mut main: Game = Game::new(WIDTH, HEIGHT);
-    main.start();
+    let mut game: Game = Game::new(WIDTH, HEIGHT);
+
+    game.start();
 
     while let Some(event) = window.next() {
         if let Some(Button::Keyboard(key)) = event.press_args() {
-            main.key_down(key);
+            game.key_down(key);
         }
 
         window.draw_2d(&event, |ctx, graphics, device| {
             clear(colors::BACKGROUND, graphics);
             text::Text::new_color(colors::SCORE, 20)
                 .draw(
-                    main.get_score().to_string().as_ref(),
+                    &format!("{}", game.get_score().to_string()),
                     &mut glyphs,
                     &ctx.draw_state,
-                    ctx.transform.trans(0.0, 20.0),
+                    ctx.transform.trans(20.0, 20.0),
                     graphics,
                 )
                 .unwrap();
-            main.draw(ctx, graphics);
+            game.draw(ctx, graphics);
             glyphs.factory.encoder.flush(device);
         });
 
         event.update(|arg| {
-            main.update(arg.dt);
+            game.update(arg.dt);
         });
     }
 }

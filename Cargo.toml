@@ -1,6 +1,6 @@
 [package]
 authors = ["schulke-214 <schulkemaximilian@gmail.com>"]
-edition = "2018"
+edition = "2021"
 name = "rsnake"
 version = "0.1.0"
 

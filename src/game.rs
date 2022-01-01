@@ -118,7 +118,7 @@ impl Game {
     }
 
     fn calc_score(&mut self) {
-        self.score = (self.snake.get_len() * 10) as u32
+        self.score = (self.snake.get_len() * 10) as u32;
     }
 
     fn restart(&mut self) {
