@@ -50,7 +50,7 @@ fn main() {
             main.key_down(key);
         }
 
-        window.draw_2d(&event, |ctx, graphics, _device| {
+        window.draw_2d(&event, |ctx, graphics, device| {
             clear(colors::BACKGROUND, graphics);
             text::Text::new_color(colors::SCORE, 20)
                 .draw(
@@ -62,6 +62,7 @@ fn main() {
                 )
                 .unwrap();
             main.draw(ctx, graphics);
+            glyphs.factory.encoder.flush(device);
         });
 
         event.update(|arg| {
