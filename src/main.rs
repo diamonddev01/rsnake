@@ -39,8 +39,7 @@ fn main() {
         .for_folder("assets")
         .unwrap();
     let ref font = assets.join("retro-gaming.ttf");
-    let factory = window.factory.clone();
-    let mut glyphs = Glyphs::new(font, factory, TextureSettings::new()).unwrap();
+    let mut glyphs = window.load_font(font).unwrap();
 
     let mut main: Game = Game::new(WIDTH, HEIGHT);
     main.start();
@@ -50,18 +49,18 @@ fn main() {
             main.key_down(key);
         }
 
-        window.draw_2d(&event, |ctx, g| {
-            clear(colors::BACKGROUND, g);
+        window.draw_2d(&event, |ctx, graphics, _device| {
+            clear(colors::BACKGROUND, graphics);
             text::Text::new_color(colors::SCORE, 20)
                 .draw(
                     main.get_score().to_string().as_ref(),
                     &mut glyphs,
                     &ctx.draw_state,
                     ctx.transform.trans(0.0, 20.0),
-                    g,
+                    graphics,
                 )
                 .unwrap();
-            main.draw(ctx, g);
+            main.draw(ctx, graphics);
         });
 
         event.update(|arg| {
