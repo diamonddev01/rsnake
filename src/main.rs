@@ -32,6 +32,7 @@ fn main() {
 
     let mut window: PistonWindow = WindowSettings::new(WINDOW_TITLE, size)
         .resizable(false)
+        .exit_on_esc(true)
         .build()
         .unwrap();
 

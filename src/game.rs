@@ -54,13 +54,13 @@ impl Game {
         self.paused = true;
     }
 
-    // pub fn toggle_game_state(&mut self) {
-    //     if self.paused {
-    //         self.start();
-    //     } else {
-    //         self.pause();
-    //     }
-    // }
+    pub fn toggle_game_state(&mut self) {
+        if self.paused {
+            self.start();
+        } else {
+            self.pause();
+        }
+    }
 
     pub fn draw(&self, ctx: Context, g: &mut G2d) {
         draw_block(&ctx, g, colors::FRUIT, &self.fruit);
@@ -102,16 +102,9 @@ impl Game {
     }
 
     pub fn key_down(&mut self, key: keyboard::Key) {
-        use keyboard::Key;
-
-        // match key {
-        //     Key::R => self.over = false, // temp solution -> replace current game state trough new one
-        //     Key::Space => self.toggle_game_state(),
-        //     _ => self.start(),
-        // }
-
         match key {
             Key::R => self.restart(),
+            Key::P | Key::Space => self.toggle_game_state(),
             Key::A | Key::Left => self.snake.set_dir(Direction::Left),
             Key::W | Key::Up => self.snake.set_dir(Direction::Up),
             Key::D | Key::Right => self.snake.set_dir(Direction::Right),
