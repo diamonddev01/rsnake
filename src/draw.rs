@@ -1,9 +1,28 @@
 use crate::colors;
 use crate::physics::{Direction, Position};
 use piston_window::types::Color;
-use piston_window::{rectangle, Context, G2d};
+use piston_window::{rectangle, text, Context, G2d, Glyphs, Transformed};
 
 pub const BLOCK_SIZE: f64 = 25.0;
+
+pub fn draw_text(
+    ctx: &Context,
+    graphics: &mut G2d,
+    glyphs: &mut Glyphs,
+    color: Color,
+    pos: Position,
+    text: &str,
+) {
+    text::Text::new_color(color, 20)
+        .draw(
+            text,
+            glyphs,
+            &ctx.draw_state,
+            ctx.transform.trans(pos.x as f64, pos.y as f64),
+            graphics,
+        )
+        .unwrap();
+}
 
 pub fn draw_block(ctx: &Context, g: &mut G2d, c: Color, pos: &Position) {
     rectangle(

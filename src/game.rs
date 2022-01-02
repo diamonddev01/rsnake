@@ -62,10 +62,17 @@ impl Game {
         }
     }
 
-    pub fn draw(&self, ctx: Context, g: &mut G2d) {
+    pub fn draw(&self, ctx: Context, g: &mut G2d, glyphs: &mut Glyphs) {
         draw_block(&ctx, g, colors::FRUIT, &self.fruit);
         self.snake.draw(&ctx, g);
-        // draw_text(&ctx, g, colors::SCORE, self.score.to_string());
+        draw_text(
+            &ctx,
+            g,
+            glyphs,
+            colors::SCORE,
+            Position { x: 0, y: 20 },
+            &self.get_score().to_string(),
+        );
 
         if self.over {
             draw_overlay(&ctx, g, colors::OVERLAY, self.size)

@@ -53,16 +53,7 @@ fn main() {
 
         window.draw_2d(&event, |ctx, graphics, device| {
             clear(colors::BACKGROUND, graphics);
-            text::Text::new_color(colors::SCORE, 20)
-                .draw(
-                    &format!("{}", game.get_score().to_string()),
-                    &mut glyphs,
-                    &ctx.draw_state,
-                    ctx.transform.trans(20.0, 20.0),
-                    graphics,
-                )
-                .unwrap();
-            game.draw(ctx, graphics);
+            game.draw(ctx, graphics, &mut glyphs);
             glyphs.factory.encoder.flush(device);
         });
 
