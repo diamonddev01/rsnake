@@ -1,0 +1,18 @@
+- Added Difficulty curve
+  - More score -> Faster game using fps. Probably not the best.
+- Renamed files
+  - draw.rs -> drawing.rs
+- Removed unused functions
+  - drawing.rs (draw_fruit)
+- Fixed some bugs with gen_range
+  - rng.gen_range(0, width as i32) -> rng.gen_range(0..width as i32)
+  - rng.gen_range(0, height as i32) -> rng.gen_range(0..height as i32),
+- Removed comments
+- Added Wall Collision -> Death
+  - For some reason the snake just teleported in the old code. Removed this
+- Fixed some responsivity
+  - Made all keypresses work if the game is running rather than only if the tail is corrected
+    - Update the tail if the tail isnt updated :)
+- Version updates
+  - piston_window 0.121.0 -> 0.127.0
+  - rand 0.6.5 -> 0.8.5
