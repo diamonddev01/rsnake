@@ -6,5 +6,5 @@ version = "0.1.0"
 
 [dependencies]
 find_folder = "0.3.0"
-piston_window = "0.121.0"
-rand = "0.6.5"
+piston_window = "0.127.0"
+rand = "0.8.5"
