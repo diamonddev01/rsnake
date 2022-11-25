@@ -2,7 +2,7 @@ use piston_window::{Context, G2d};
 use std::collections::LinkedList;
 
 use crate::colors;
-use crate::draw::*;
+use crate::drawing::*;
 use crate::physics::{Direction, Position};
 
 const INITIAL_SNAKE_TAIL_LENGTH: usize = 2;
@@ -40,7 +40,7 @@ impl Snake {
     // pub fn grow(&mut self, x: u32, y: u32) {
     //     self.tail.push_back(Position { x, y })
     // }
-    pub fn update(&mut self, width: u32, height: u32) {
+    pub fn update(&mut self) {
         if self.tail.len() > 0 {
             self.tail.push_front(self.head.clone());
             self.tail.pop_back();
@@ -53,15 +53,15 @@ impl Snake {
             Direction::Left => self.head.x -= 1,
         }
 
-        if self.head.x >= width as i32 {
-            self.head.x = 0;
-        } else if self.head.y >= height as i32 {
-            self.head.y = 0;
-        } else if self.head.y < 0 {
-            self.head.y = height as i32;
-        } else if self.head.x < 0 {
-            self.head.x = width as i32;
-        }
+        // if self.head.x >= width as i32 {
+        //     self.head.x = 0;
+        // } else if self.head.y >= height as i32 {
+        //     self.head.y = 0;
+        // } else if self.head.y < 0 {
+        //     self.head.y = height as i32;
+        // } else if self.head.x < 0 {
+        //     self.head.x = width as i32;
+        // }
 
         self.updated_tail_pos = true;
     }
@@ -75,8 +75,12 @@ impl Snake {
     }
 
     pub fn set_dir(&mut self, dir: Direction) {
-        if dir == self.direction.opposite() || !self.updated_tail_pos {
+        if dir == self.direction.opposite() {
             return;
+        }
+
+        if !self.updated_tail_pos {
+            self.update();
         }
 
         self.direction = dir;
@@ -135,7 +139,7 @@ impl Snake {
         self.tail.push_back(last);
     }
 
-    fn next_head_pos(&self) -> Position {
+    pub fn next_head_pos(&self) -> Position {
         let mut pos = self.head.clone();
 
         match self.direction {
